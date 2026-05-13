@@ -1,294 +1,785 @@
 <!doctype html>
 <html lang="cs">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Jakub Nábělek — Team Leader @ HAVIT</title>
-<meta name="description" content="Jakub Nábělek — Team Leader v HAVIT. .NET MAUI Blazor Hybrid, ASP.NET Core, Azure." />
-<meta name="theme-color" content="#0a0a0a" />
-<meta property="og:title" content="Jakub Nábělek — Team Leader @ HAVIT" />
-<meta property="og:description" content=".NET • Azure • Blazor. Vedu sedmičlenný tým na projektech AIMEE, BeTy2, Poradce v Apce, Těhotenský průkaz." />
-<meta property="og:type" content="profile" />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0a0a'/%3E%3Ctext x='50%25' y='54%25' text-anchor='middle' font-family='-apple-system,Segoe UI,sans-serif' font-size='34' font-weight='700' fill='%23ff6a00'%3EJN%3C/text%3E%3C/svg%3E" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Jakub Nábělek — Team Leader & Project Manager @ HAVIT</title>
+<meta name="description" content="Jakub Nábělek — Team Leader & Project Manager v HAVIT. 11 let, 7členný tým. .NET MAUI Blazor Hybrid, ASP.NET Core, Azure. Projekty pro BrokerTrust, MedApps a interní AIMEE.">
+<meta name="theme-color" content="#0a1220">
+<meta name="color-scheme" content="dark">
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Jakub Nábělek — Team Leader & PM @ HAVIT">
+<meta property="og:description" content="11 let v HAVIT, vedu sedmičlenný tým. .NET MAUI Blazor Hybrid, ASP.NET Core, Azure.">
+<meta property="og:locale" content="cs_CZ">
+<meta property="og:site_name" content="HAVIT">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="%23114788"/><text x="32" y="42" font-family="ui-sans-serif,system-ui,Inter,sans-serif" font-weight="800" font-size="30" text-anchor="middle" fill="%232097D0">JN</text></svg>'>
 <style>
   :root {
-    --bg: #0a0a0a;
-    --bg-2: #131313;
-    --line: #1f1f1f;
-    --line-2: #2a2a2a;
-    --fg: #ededed;
-    --muted: #8a8a8a;
-    --accent: #ff6a00;
-    --accent-soft: rgba(255, 106, 0, 0.12);
-    --radius: 16px;
-    --max: 720px;
+    --bg: #0a1220;
+    --bg-2: #0e1729;
+    --surface: #121d33;
+    --surface-2: #16243d;
+    --line: #1f2f4d;
+    --line-strong: #2a3e64;
+    --ink: #e7eef9;
+    --ink-2: #aab7cd;
+    --ink-3: #7a8aa6;
+    --brand: #114788;
+    --brand-2: #2097D0;
+    --brand-glow: rgba(32,151,208,.18);
+    --radius: 14px;
+    --radius-sm: 10px;
+    --maxw: 1120px;
+    --mono: ui-monospace,SFMono-Regular,"JetBrains Mono",Menlo,Consolas,monospace;
+    --sans: Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   }
-
-  * { box-sizing: border-box; }
-
-  html, body {
-    margin: 0;
-    padding: 0;
+  *,*::before,*::after { box-sizing: border-box; }
+  html,body { margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: var(--sans);
     background: var(--bg);
-    color: var(--fg);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
-    font-size: 16px;
+    color: var(--ink);
     line-height: 1.55;
+    font-size: 16px;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    min-height: 100vh;
+    overflow-x: hidden;
   }
 
-  body {
+  /* ---------- background mesh + noise ---------- */
+  .bg {
+    position: fixed; inset: 0; z-index: -1; pointer-events: none;
     background:
-      radial-gradient(1200px 600px at 80% -10%, rgba(255, 106, 0, 0.10), transparent 60%),
-      radial-gradient(900px 500px at -10% 10%, rgba(255, 106, 0, 0.06), transparent 60%),
-      var(--bg);
-    min-height: 100dvh;
+      radial-gradient(60vw 60vw at 12% 8%, rgba(32,151,208,.10), transparent 60%),
+      radial-gradient(50vw 50vw at 92% 24%, rgba(17,71,136,.22), transparent 65%),
+      radial-gradient(70vw 70vw at 70% 100%, rgba(32,151,208,.07), transparent 70%),
+      linear-gradient(180deg, #0a1220 0%, #0a1220 60%, #0c1426 100%);
+  }
+  .bg::after {
+    content:"";
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    opacity: .55;
+    mix-blend-mode: overlay;
   }
 
-  main {
-    max-width: var(--max);
+  /* ---------- layout ---------- */
+  .wrap {
+    max-width: var(--maxw);
     margin: 0 auto;
-    padding: clamp(32px, 6vw, 72px) clamp(20px, 5vw, 40px) 80px;
+    padding: clamp(24px, 5vw, 56px) clamp(20px, 5vw, 48px) 120px;
   }
 
-  .eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
+  /* ---------- top bar ---------- */
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px;
+    padding-bottom: 56px;
+  }
+  .brandmark {
+    display: inline-flex; align-items: center; gap: 10px;
+    color: var(--ink-2);
+    font-family: var(--mono);
     font-size: 12px;
-    letter-spacing: 0.16em;
+    letter-spacing: .04em;
     text-transform: uppercase;
-    color: var(--muted);
+  }
+  .brandmark .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--brand-2);
+    box-shadow: 0 0 0 4px rgba(32,151,208,.18);
+  }
+  .ai-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: var(--brand-2);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: .04em;
     padding: 6px 12px;
-    border: 1px solid var(--line);
+    border: 1px solid rgba(32,151,208,.4);
     border-radius: 999px;
-    background: var(--bg-2);
+    background: rgba(32,151,208,.06);
+    backdrop-filter: blur(8px);
+    text-transform: none;
   }
-  .eyebrow .dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 0 4px var(--accent-soft);
+  .ai-pill .spark {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--brand-2);
+    box-shadow: 0 0 8px rgba(32,151,208,.8);
+    animation: pulse 2.6s ease-out infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(32,151,208,.6), 0 0 8px rgba(32,151,208,.8); }
+    70% { box-shadow: 0 0 0 8px rgba(32,151,208,0), 0 0 8px rgba(32,151,208,.8); }
+    100% { box-shadow: 0 0 0 0 rgba(32,151,208,0), 0 0 8px rgba(32,151,208,.8); }
   }
 
-  h1 {
-    font-size: clamp(34px, 7vw, 56px);
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    margin: 18px 0 10px;
+  /* ---------- hero ---------- */
+  .hero { display: grid; gap: 28px; }
+  .role-line {
+    display: inline-flex; align-items: center; gap: 12px;
+    color: var(--ink-2);
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: .02em;
+  }
+  .role-line .bar { width: 28px; height: 1px; background: var(--line-strong); }
+
+  h1.name {
+    margin: 0;
+    font-size: clamp(48px, 9vw, 104px);
+    line-height: .96;
+    letter-spacing: -0.035em;
     font-weight: 700;
+    color: var(--brand-2);
   }
-
   .role {
-    font-size: clamp(17px, 2.4vw, 20px);
-    color: var(--fg);
-    margin: 0 0 6px;
+    font-size: clamp(20px, 2.4vw, 26px);
+    color: var(--ink-2);
+    font-weight: 400;
+    margin: 0;
+    max-width: 36ch;
   }
-  .role a {
-    color: var(--accent);
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.15s ease;
-  }
-  .role a:hover { border-bottom-color: var(--accent); }
+  .role strong { color: var(--ink); font-weight: 600; }
 
-  .stack {
-    color: var(--muted);
-    font-size: 15px;
-    margin: 0 0 28px;
-  }
-  .stack span + span::before {
-    content: "•";
-    margin: 0 10px;
-    color: var(--line-2);
-  }
-
-  section {
-    margin-top: 36px;
-  }
-
-  h2 {
-    font-size: 12px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin: 0 0 14px;
-    font-weight: 600;
-  }
-
+  /* ---------- about ---------- */
   .about {
-    font-size: 16.5px;
-    color: #d4d4d4;
-  }
-  .about strong { color: var(--fg); font-weight: 600; }
-
-  .projects {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-  @media (min-width: 560px) {
-    .projects { grid-template-columns: 1fr 1fr; }
-  }
-  .project {
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 16px 18px;
-    background: var(--bg-2);
-    transition: border-color 0.15s ease, transform 0.15s ease;
-  }
-  .project:hover { border-color: var(--line-2); transform: translateY(-1px); }
-  .project .name { font-weight: 600; color: var(--fg); }
-  .project .desc { font-size: 14px; color: var(--muted); margin-top: 2px; }
-
-  .contact {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-  @media (min-width: 560px) {
-    .contact { grid-template-columns: 1fr 1fr; }
-  }
-  .contact a {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 14px 18px;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    background: var(--bg-2);
-    color: var(--fg);
-    text-decoration: none;
-    transition: border-color 0.15s ease, background 0.15s ease;
-  }
-  .contact a:hover {
-    border-color: var(--accent);
-    background: linear-gradient(0deg, var(--accent-soft), var(--accent-soft)), var(--bg-2);
-  }
-  .contact .icon {
-    width: 36px;
-    height: 36px;
-    flex: 0 0 36px;
-    border-radius: 10px;
-    background: var(--accent-soft);
-    color: var(--accent);
-    display: grid;
-    place-items: center;
-  }
-  .contact .icon svg { width: 18px; height: 18px; }
-  .contact .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.12em; }
-  .contact .value { font-size: 16px; }
-
-  .cta {
-    margin-top: 36px;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 14px 22px;
-    border-radius: 999px;
-    background: var(--accent);
-    color: #1a0a00;
-    font-weight: 600;
-    text-decoration: none;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-    box-shadow: 0 8px 30px -10px rgba(255, 106, 0, 0.6);
-  }
-  .cta:hover { transform: translateY(-1px); }
-  .cta svg { width: 16px; height: 16px; }
-
-  footer {
     margin-top: 56px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    max-width: 70ch;
+  }
+  .about p {
+    font-size: 17px;
+    color: var(--ink);
+    margin: 0;
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-top: 8px;
+  }
+  .stat {
+    background: var(--surface);
+    padding: 18px 18px;
+  }
+  .stat .v {
+    font-family: var(--mono);
+    font-size: clamp(24px, 4vw, 32px);
+    color: var(--ink);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .stat .l {
+    margin-top: 6px;
+    font-size: 12px;
+    color: var(--ink-3);
+    font-family: var(--mono);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+  }
+
+  /* ---------- section headers ---------- */
+  .section-h {
+    display: flex; align-items: baseline; gap: 14px;
+    margin: 96px 0 28px;
+  }
+  .section-h .num {
+    font-family: var(--mono);
+    color: var(--brand-2);
+    font-size: 12px;
+    letter-spacing: .08em;
+  }
+  .section-h h2 {
+    margin: 0;
+    font-size: clamp(20px, 2.6vw, 26px);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+  .section-h .rule {
+    flex: 1; height: 1px; background: var(--line);
+  }
+
+  /* ---------- stack chips ---------- */
+  .stack {
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .chip {
+    font-family: var(--mono);
+    font-size: 13px;
+    padding: 7px 12px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--ink);
+    background: linear-gradient(180deg, rgba(22,36,61,.6), rgba(18,29,51,.6));
+    transition: border-color .18s ease, color .18s ease, transform .18s ease;
+  }
+  .chip:hover { border-color: var(--brand-2); color: var(--brand-2); transform: translateY(-1px); }
+  .chip.ai {
+    color: var(--brand-2);
+    border-color: rgba(32,151,208,.45);
+    background: linear-gradient(180deg, rgba(32,151,208,.10), rgba(17,71,136,.18));
+    box-shadow: inset 0 0 0 1px rgba(32,151,208,.06);
+  }
+  .chip.ai::before {
+    content: "";
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--brand-2);
+    margin-right: 8px;
+    vertical-align: middle;
+    box-shadow: 0 0 8px rgba(32,151,208,.7);
+  }
+  .chip.ai:hover { border-color: var(--brand-2); color: #cfe9f7; transform: translateY(-1px); }
+
+  /* ---------- projects ---------- */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 14px;
+  }
+  .grid .card.full { grid-column: 1 / -1; }
+  @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } .grid .card.full { grid-column: auto; } }
+
+  .card {
+    position: relative;
+    padding: 22px 22px 24px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: linear-gradient(180deg, rgba(22,36,61,.55), rgba(14,23,41,.7));
+    transition: border-color .25s ease, transform .25s ease, background .25s ease;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .card::before {
+    content:"";
+    position: absolute; inset: 0;
+    background: radial-gradient(420px 200px at var(--mx,50%) var(--my,0%), rgba(32,151,208,.10), transparent 60%);
+    opacity: 0;
+    transition: opacity .25s ease;
+    z-index: -1;
+  }
+  .card:hover {
+    border-color: var(--line-strong);
+    transform: translateY(-2px);
+  }
+  .card:hover::before { opacity: 1; }
+  .card-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .card-key {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-3);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .card-client {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--brand-2);
+    letter-spacing: .04em;
+  }
+  .card h3 {
+    margin: 0 0 8px;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+  .card p {
+    margin: 0;
+    color: var(--ink-2);
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+  .card-tags {
+    margin-top: 16px;
+    display: flex; flex-wrap: wrap; gap: 6px;
+  }
+  .tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-3);
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: rgba(255,255,255,.03);
+    border: 1px solid var(--line);
+  }
+
+  /* ---------- contact rail (desktop) ---------- */
+  .rail {
+    position: fixed;
+    top: 50%;
+    right: 28px;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 10;
+  }
+  .rail a, .rail button {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 44px; height: 44px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: rgba(18,29,51,.7);
+    backdrop-filter: blur(10px);
+    color: var(--ink-2);
+    cursor: pointer;
+    text-decoration: none;
+    transition: color .18s ease, border-color .18s ease, transform .18s ease, background .18s ease;
+  }
+  .rail a:hover, .rail button:hover {
+    color: var(--brand-2);
+    border-color: var(--brand-2);
+    transform: translateY(-1px);
+  }
+  .rail a:focus-visible, .rail button:focus-visible {
+    outline: 2px solid var(--brand-2);
+    outline-offset: 3px;
+  }
+  .rail svg { width: 18px; height: 18px; }
+  @media (max-width: 960px) { .rail { display: none; } }
+
+  /* ---------- contact section ---------- */
+  .contacts {
+    margin-top: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  @media (max-width: 720px) { .contacts { grid-template-columns: 1fr; } }
+
+  .ccard {
+    display: flex; align-items: center; gap: 14px;
+    padding: 20px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: linear-gradient(180deg, rgba(22,36,61,.55), rgba(14,23,41,.7));
+    text-decoration: none;
+    color: var(--ink);
+    position: relative;
+    transition: border-color .2s ease, transform .2s ease;
+  }
+  .ccard:hover { border-color: var(--brand-2); transform: translateY(-1px); }
+  .ccard:focus-visible { outline: 2px solid var(--brand-2); outline-offset: 3px; }
+  .ccard .ic {
+    flex: none;
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    display: grid; place-items: center;
+    background: rgba(32,151,208,.10);
+    color: var(--brand-2);
+    border: 1px solid rgba(32,151,208,.25);
+  }
+  .ccard .ic svg { width: 18px; height: 18px; }
+  .ccard .l {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-3);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .ccard .v {
+    font-size: 17px;
+    margin-top: 2px;
+    color: var(--ink);
+  }
+  .ccard .copy {
+    margin-left: auto;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-3);
+    padding: 5px 8px;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+    background: rgba(255,255,255,.02);
+    cursor: pointer;
+    transition: color .18s ease, border-color .18s ease, background .18s ease;
+  }
+  .ccard .copy:hover { color: var(--brand-2); border-color: var(--brand-2); }
+  .ccard .copy.copied { color: #4ade80; border-color: rgba(74,222,128,.4); background: rgba(74,222,128,.08); }
+  .ccard .copy:focus-visible { outline: 2px solid var(--brand-2); outline-offset: 2px; }
+
+  /* ---------- CTA ---------- */
+  a.cta-card {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 28px;
+    margin-top: 24px;
+    padding: 28px 28px 28px 32px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background:
+      radial-gradient(80% 180% at 0% 0%, rgba(17,71,136,.35), transparent 60%),
+      linear-gradient(180deg, rgba(22,36,61,.55), rgba(14,23,41,.65));
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    isolation: isolate;
+    transition: border-color .25s ease, transform .25s ease, background .25s ease;
+    overflow: hidden;
+  }
+  a.cta-card::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(500px 240px at var(--mx,80%) var(--my,50%), rgba(32,151,208,.12), transparent 60%);
+    opacity: 0;
+    transition: opacity .3s ease;
+    z-index: -1;
+  }
+  a.cta-card:hover { border-color: var(--brand-2); transform: translateY(-1px); }
+  a.cta-card:hover::before { opacity: 1; }
+  a.cta-card:focus-visible { outline: 2px solid var(--brand-2); outline-offset: 3px; }
+
+  a.cta-card .ctakicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--brand-2);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  a.cta-card .ctakicker::before {
+    content: ""; width: 18px; height: 1px; background: var(--brand-2);
+  }
+  a.cta-card p {
+    margin: 0;
+    color: var(--ink-2);
+    font-size: 15.5px;
+    line-height: 1.6;
+    max-width: 56ch;
+  }
+  a.cta-card p strong { color: var(--ink); font-weight: 600; }
+  a.cta-card p .acc { color: var(--brand-2); }
+
+  a.cta-card .ctago {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: .04em;
+    color: var(--ink);
+    white-space: nowrap;
+    padding-right: 4px;
+  }
+  a.cta-card .ctago .domain { color: var(--ink); }
+  a.cta-card .ctago .arrow {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--line-strong);
+    display: grid; place-items: center;
+    color: var(--brand-2);
+    transition: border-color .25s ease, background .25s ease, transform .25s ease;
+  }
+  a.cta-card:hover .ctago .arrow {
+    border-color: var(--brand-2);
+    background: var(--brand-2);
+    color: #06182a;
+  }
+  a.cta-card:hover .ctago .arrow svg { transform: translateX(2px); }
+  a.cta-card .ctago .arrow svg { transition: transform .2s ease; }
+
+  @media (max-width: 640px) {
+    a.cta-card { grid-template-columns: 1fr; gap: 20px; padding: 24px; }
+    a.cta-card .ctago { justify-content: space-between; }
+  }
+
+  /* ---------- footer ---------- */
+  footer {
+    margin-top: 80px;
     padding-top: 24px;
     border-top: 1px solid var(--line);
-    color: var(--muted);
-    font-size: 13px;
-    display: flex;
-    justify-content: space-between;
-    gap: 12px;
-    flex-wrap: wrap;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 14px;
+    color: var(--ink-3);
+    font-family: var(--mono);
+    font-size: 12px;
   }
-  footer a { color: var(--muted); text-decoration: none; }
-  footer a:hover { color: var(--fg); }
+  footer a { color: var(--ink-3); text-decoration: none; }
+  footer a:hover { color: var(--brand-2); }
 
-  @media (prefers-reduced-motion: reduce) {
-    * { transition: none !important; }
+  /* ---------- toast ---------- */
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: 28px;
+    transform: translate(-50%, 30px);
+    background: #16243d;
+    color: var(--ink);
+    padding: 10px 16px;
+    border-radius: 999px;
+    border: 1px solid var(--line-strong);
+    font-family: var(--mono);
+    font-size: 13px;
+    opacity: 0;
+    transition: opacity .2s ease, transform .2s ease;
+    pointer-events: none;
+    z-index: 100;
+    box-shadow: 0 10px 30px -10px rgba(0,0,0,.6);
   }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+  .toast::before {
+    content: "";
+    display: inline-block;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #4ade80;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+
+  /* ---------- scroll reveal ---------- */
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* ---------- reduced motion ---------- */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .reveal { opacity: 1; transform: none; }
+  }
+
+  /* ---------- print ---------- */
+  @media print {
+    @page { margin: 14mm; }
+    html, body { background: #fff !important; color: #000 !important; }
+    .bg, .rail, .toast, .ai-pill { display: none !important; }
+    a.cta-card { background: #fff !important; border-color: #ccc !important; color: #000 !important; }
+    a.cta-card p, a.cta-card p strong, a.cta-card p .acc, a.cta-card .ctakicker, a.cta-card .ctago, a.cta-card .ctago .domain { color: #000 !important; }
+    a.cta-card .ctago .arrow { border-color: #114788 !important; color: #114788 !important; background: transparent !important; }
+    .wrap { padding: 0; max-width: 100%; }
+    h1.name { color: #114788 !important; background: none !important; -webkit-text-fill-color: #114788 !important; }
+    .role, .role-line, .brandmark, .stat .v, .stat .l, .card h3, .card p, .ccard .v, .ccard .l, footer { color: #000 !important; }
+    .card, .ccard, .stat, .chip, .tag {
+      background: #fff !important;
+      border-color: #ccc !important;
+      color: #000 !important;
+    }
+    .chip, .tag, .card-key, .card-client { color: #114788 !important; }
+    a { color: #114788 !important; text-decoration: underline; }
+    .section-h .rule { background: #ccc !important; }
+    .reveal { opacity: 1 !important; transform: none !important; }
+  }
+
+  ::selection { background: rgba(32,151,208,.4); color: #fff; }
+  a { color: var(--brand-2); }
+  a:focus-visible { outline: 2px solid var(--brand-2); outline-offset: 3px; border-radius: 3px; }
 </style>
 </head>
 <body>
-<main>
-  <span class="eyebrow"><span class="dot"></span>Digitální vizitka</span>
 
-  <h1>Jakub Nábělek</h1>
-  <p class="role">Team Leader &amp; Project Manager · <a href="https://havit.cz/" target="_blank" rel="noopener">HAVIT</a></p>
-  <p class="stack"><span>.NET</span><span>Azure</span><span>Blazor</span></p>
+<div class="bg" aria-hidden="true"></div>
 
-  <section>
-    <h2>O mně</h2>
-    <p class="about">
-      Už <strong>11 let v HAVIT</strong>, kde vedu <strong>sedmičlenný tým</strong> na projektech pro BrokerTrust, MedApps a interním identity management systému AIMEE.
-      Specializujeme se na <strong>.NET MAUI Blazor Hybrid</strong>, <strong>ASP.NET Core API</strong> a <strong>Azure</strong> (EU region), s využitím vlastních HAVIT Blazor komponent.
-    </p>
-  </section>
-
-  <section>
-    <h2>Klíčové projekty</h2>
-    <div class="projects">
-      <div class="project">
-        <div class="name">AIMEE</div>
-        <div class="desc">Identity management</div>
-      </div>
-      <div class="project">
-        <div class="name">BeTy2</div>
-        <div class="desc">BrokerTrust</div>
-      </div>
-      <div class="project">
-        <div class="name">Poradce v Apce</div>
-        <div class="desc">BrokerTrust</div>
-      </div>
-      <div class="project">
-        <div class="name">Těhotenský průkaz</div>
-        <div class="desc">MedApps</div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <h2>Kontakt</h2>
-    <div class="contact">
-      <a href="mailto:nabelek@havit.cz">
-        <span class="icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
-        </span>
-        <span>
-          <div class="label">Email</div>
-          <div class="value">nabelek@havit.cz</div>
-        </span>
-      </a>
-      <a href="tel:+420777311132">
-        <span class="icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.8a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.28-1.28a2 2 0 0 1 2.11-.45c.9.34 1.84.57 2.8.7A2 2 0 0 1 22 16.92Z"/></svg>
-        </span>
-        <span>
-          <div class="label">Telefon</div>
-          <div class="value">+420 777 311 132</div>
-        </span>
-      </a>
-    </div>
-  </section>
-
-  <a class="cta" href="https://havit.cz/" target="_blank" rel="noopener">
-    Navštívit havit.cz
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
+<aside class="rail" aria-label="Kontakty">
+  <a href="mailto:nabelek@havit.cz" aria-label="Napsat e-mail" title="nabelek@havit.cz">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>
+    </svg>
   </a>
+  <a href="tel:+420777311132" aria-label="Zavolat" title="+420 777 311 132">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92Z"/>
+    </svg>
+  </a>
+  <a href="https://havit.cz/" target="_blank" rel="noopener" aria-label="HAVIT.cz" title="havit.cz">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>
+    </svg>
+  </a>
+</aside>
+
+<main class="wrap">
+  <header class="topbar">
+    <span class="brandmark"><span class="dot" aria-hidden="true"></span>HAVIT · Praha</span>
+    <span class="ai-pill" aria-label="Pracujeme s AI a agenty"><span class="spark" aria-hidden="true"></span>AI &amp; agenti · zapojujeme do produktů</span>
+  </header>
+
+  <section class="hero">
+    <div class="role-line"><span class="bar" aria-hidden="true"></span>Team Leader &amp; Project Manager</div>
+    <h1 class="name">Jakub Nábělek</h1>
+    <p class="role">Vedu tým, který staví <strong>webové a mobilní aplikace</strong> pro brokery, lékaře, interní projekty a další obory.</p>
+  </section>
+
+  <section class="about reveal" aria-labelledby="about-h">
+    <p id="about-h">
+      <strong>11 let v HAVITu</strong>, vedu sedmičlenný tým. Stojíme za platformami pro
+      BrokerTrust (BeTy2, Poradce v Apce, Autorizační modul – SSO), aplikací Těhotenský průkaz pro MedApps
+      a identity systémem AIMEE pro VWFS. Kromě tradičního vývoje softwaru se věnujeme i využití <strong>AI</strong>
+      v aplikacích, procesech a potřebách zákazníků — a implementaci <strong>agentních systémů</strong> pro zefektivnění procesů.
+    </p>
+    <div class="stats" role="list">
+      <div class="stat" role="listitem"><div class="v">11</div><div class="l">let v HAVIT</div></div>
+      <div class="stat" role="listitem"><div class="v">7</div><div class="l">členný tým</div></div>
+      <div class="stat" role="listitem"><div class="v">8</div><div class="l">aktivních produktů</div></div>
+    </div>
+  </section>
+
+  <section class="reveal" aria-labelledby="stack-h">
+    <div class="section-h">
+      <span class="num">01</span>
+      <h2 id="stack-h">Tech stack</h2>
+      <span class="rule" aria-hidden="true"></span>
+    </div>
+    <div class="stack">
+      <span class="chip">.NET MAUI Blazor Hybrid</span>
+      <span class="chip">ASP.NET Core</span>
+      <span class="chip">Blazor</span>
+      <span class="chip">Azure</span>
+      <span class="chip">SQL Server / EF Core</span>
+      <span class="chip">HAVIT Blazor komponenty</span>
+      <span class="chip ai">AI agenti</span>
+      <span class="chip ai">LLM integrace</span>
+      <span class="chip">Azure DevOps</span>
+    </div>
+  </section>
+
+  <section class="reveal" aria-labelledby="projects-h">
+    <div class="section-h">
+      <span class="num">02</span>
+      <h2 id="projects-h">Klíčové projekty</h2>
+      <span class="rule" aria-hidden="true"></span>
+    </div>
+    <div class="grid">
+      <article class="card" data-hover>
+        <div class="card-head"><span class="card-key">/01</span><span class="card-client">VWFS</span></div>
+        <h3>AIMEE</h3>
+        <p>Identity management systém — správa uživatelů, rolí a přístupů. Dodáváme pro Volkswagen Financial Services.</p>
+        <div class="card-tags"><span class="tag">Identity</span><span class="tag">ASP.NET Core</span><span class="tag">Azure</span></div>
+      </article>
+      <article class="card" data-hover>
+        <div class="card-head"><span class="card-key">/02</span><span class="card-client">BrokerTrust</span></div>
+        <h3>BeTy2</h3>
+        <p>Druhá generace interní platformy pro brokery — modulární back-office se silnou doménovou logikou.</p>
+        <div class="card-tags"><span class="tag">Web</span><span class="tag">Blazor</span><span class="tag">.NET</span></div>
+      </article>
+      <article class="card" data-hover>
+        <div class="card-head"><span class="card-key">/03</span><span class="card-client">BrokerTrust</span></div>
+        <h3>Poradce v Apce</h3>
+        <p>Mobilní aplikace pro finanční poradce v terénu — offline-first, postavená na .NET MAUI Blazor Hybrid.</p>
+        <div class="card-tags"><span class="tag">.NET MAUI</span><span class="tag">Hybrid</span><span class="tag">iOS / Android</span></div>
+      </article>
+      <article class="card" data-hover>
+        <div class="card-head"><span class="card-key">/04</span><span class="card-client">BrokerTrust</span></div>
+        <h3>Autorizační modul — SSO</h3>
+        <p>Single sign-on a centrální autorizační vrstva napříč BrokerTrust produkty — řízení rolí, oprávnění a politik.</p>
+        <div class="card-tags"><span class="tag">SSO</span><span class="tag">ASP.NET Core</span><span class="tag">Security</span></div>
+      </article>
+      <article class="card full" data-hover>
+        <div class="card-head"><span class="card-key">/05</span><span class="card-client">MedApps</span></div>
+        <h3>Těhotenský průkaz</h3>
+        <p>Digitální průkaz a sledování těhotenství — citlivá data, zaměření na UX a důvěru.</p>
+        <div class="card-tags"><span class="tag">Healthcare</span><span class="tag">Mobile</span><span class="tag">Azure</span></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="reveal" aria-labelledby="contact-h">
+    <div class="section-h">
+      <span class="num">03</span>
+      <h2 id="contact-h">Kontakt</h2>
+      <span class="rule" aria-hidden="true"></span>
+    </div>
+    <div class="contacts">
+      <a class="ccard" href="mailto:nabelek@havit.cz">
+        <span class="ic" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+        </span>
+        <span>
+          <span class="l">E-mail</span>
+          <span class="v">nabelek@havit.cz</span>
+        </span>
+      </a>
+      <a class="ccard" href="tel:+420777311132">
+        <span class="ic" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92Z"/></svg>
+        </span>
+        <span>
+          <span class="l">Telefon</span>
+          <span class="v">+420 777 311 132</span>
+        </span>
+      </a>
+    </div>
+
+    <a class="cta-card" href="https://havit.cz/" target="_blank" rel="noopener" data-hover>
+      <div>
+        <div class="ctakicker">O HAVIT</div>
+        <p><strong>HAVIT</strong> staví digitální produkty od roku 1997 — od malých mobilních apek po velké platformy. Strategie, design, engineering a <span class="acc">AI agenti</span> pod jednou střechou.</p>
+      </div>
+      <div class="ctago">
+        <span class="domain">havit.cz</span>
+        <span class="arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </span>
+      </div>
+    </a>
+  </section>
 
   <footer>
-    <span>© <span id="y"></span> Jakub Nábělek</span>
-    <a href="https://havit.cz/" target="_blank" rel="noopener">havit.cz ↗</a>
+    <span>© <span id="yr"></span> Jakub Nábělek · HAVIT, s.r.o.</span>
+    <span>Praha</span>
   </footer>
 </main>
-<script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+  // year
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // reveal
+  const io = new IntersectionObserver(es => {
+    es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: .12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // hover halo on cards
+  document.querySelectorAll('[data-hover]').forEach(card => {
+    card.addEventListener('pointermove', (e) => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+      card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+    });
+  });
+
+  // copy
+  const toast = document.getElementById('toast');
+  let toastTimer;
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 1800);
+  }
+  document.querySelectorAll('.copy').forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+      e.preventDefault(); e.stopPropagation();
+      const val = btn.dataset.copy;
+      try {
+        await navigator.clipboard.writeText(val);
+      } catch {
+        const t = document.createElement('textarea'); t.value = val; document.body.appendChild(t); t.select();
+        try { document.execCommand('copy'); } catch {}
+        t.remove();
+      }
+      const orig = btn.textContent;
+      btn.textContent = 'copied';
+      btn.classList.add('copied');
+      showToast('Zkopírováno: ' + val);
+      setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 1600);
+    });
+  });
+</script>
 </body>
 </html>
