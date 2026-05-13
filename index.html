@@ -489,8 +489,8 @@
     background: var(--brand-2);
     color: #06182a;
   }
-  a.cta-card:hover .ctago .arrow svg { transform: translateX(2px); }
-  a.cta-card .ctago .arrow svg { transition: transform .2s ease; }
+  a.cta-card .ctago .arrow svg { transition: transform .2s ease; transform: translateX(-1px); display: block; }
+  a.cta-card:hover .ctago .arrow svg { transform: translateX(1px); }
 
   @media (max-width: 640px) {
     a.cta-card { grid-template-columns: 1fr; gap: 20px; padding: 24px; }
@@ -603,7 +603,6 @@
 <main class="wrap">
   <header class="topbar">
     <span class="brandmark"><span class="dot" aria-hidden="true"></span>HAVIT · Praha</span>
-    <span class="ai-pill" aria-label="Pracujeme s AI a agenty"><span class="spark" aria-hidden="true"></span>AI &amp; agenti · zapojujeme do produktů</span>
   </header>
 
   <section class="hero">
