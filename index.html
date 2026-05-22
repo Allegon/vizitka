@@ -1,784 +1,1057 @@
 <!doctype html>
-<html lang="cs">
+<html lang="cs" data-brightness="dark" data-theme="azure">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Jakub Nábělek — Team Leader & Project Manager @ HAVIT</title>
-<meta name="description" content="Jakub Nábělek — Team Leader & Project Manager v HAVIT. 11 let, 7členný tým. .NET MAUI Blazor Hybrid, ASP.NET Core, Azure. Projekty pro BrokerTrust, MedApps a interní AIMEE.">
-<meta name="theme-color" content="#0a1220">
+<meta name="description" content="Jakub Nábělek — Team Leader & Project Manager v HAVIT. 11 let, sedmičlenný tým. .NET MAUI Blazor Hybrid, ASP.NET Core, Azure, agentní systémy.">
+<meta name="theme-color" content="#0B0B0D">
 <meta name="color-scheme" content="dark">
 <meta property="og:type" content="profile">
 <meta property="og:title" content="Jakub Nábělek — Team Leader & PM @ HAVIT">
-<meta property="og:description" content="11 let v HAVIT, vedu sedmičlenný tým. .NET MAUI Blazor Hybrid, ASP.NET Core, Azure.">
+<meta property="og:description" content="11 let v HAVITu, vedu sedmičlenný tým. Stojíme za platformami pro BrokerTrust, MedApps a AIMEE pro VWFS.">
 <meta property="og:locale" content="cs_CZ">
 <meta property="og:site_name" content="HAVIT">
 <meta name="twitter:card" content="summary">
-<link rel="icon" href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="%23114788"/><text x="32" y="42" font-family="ui-sans-serif,system-ui,Inter,sans-serif" font-weight="800" font-size="30" text-anchor="middle" fill="%232097D0">JN</text></svg>'>
+<meta name="author" content="Jakub Nábělek">
+<link rel="icon" href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="%230B0B0D"/><text x="32" y="42" font-family="ui-sans-serif,system-ui,Plus Jakarta Sans,sans-serif" font-weight="800" font-size="30" text-anchor="middle" fill="%232097D0">JN</text></svg>'>
+<link rel="stylesheet" href="havit/colors_and_type.css">
 <style>
-  :root {
-    --bg: #0a1220;
-    --bg-2: #0e1729;
-    --surface: #121d33;
-    --surface-2: #16243d;
-    --line: #1f2f4d;
-    --line-strong: #2a3e64;
-    --ink: #e7eef9;
-    --ink-2: #aab7cd;
-    --ink-3: #7a8aa6;
-    --brand: #114788;
-    --brand-2: #2097D0;
-    --brand-glow: rgba(32,151,208,.18);
-    --radius: 14px;
-    --radius-sm: 10px;
-    --maxw: 1120px;
-    --mono: ui-monospace,SFMono-Regular,"JetBrains Mono",Menlo,Consolas,monospace;
-    --sans: Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  }
-  *,*::before,*::after { box-sizing: border-box; }
-  html,body { margin: 0; padding: 0; }
-  html { -webkit-text-size-adjust: 100%; }
+  /* ============================================================ */
+  /* Page chrome                                                  */
+  /* ============================================================ */
+  html, body { min-height: 100%; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  /* offset sticky header when jumping to anchors */
+  :target, [id] { scroll-margin-top: clamp(80px, 12vh, 120px); }
   body {
-    font-family: var(--sans);
-    background: var(--bg);
-    color: var(--ink);
-    line-height: 1.55;
-    font-size: 16px;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-    min-height: 100vh;
+    background: var(--ink);
+    color: var(--bone);
     overflow-x: hidden;
   }
 
-  /* ---------- background mesh + noise ---------- */
-  .bg {
-    position: fixed; inset: 0; z-index: -1; pointer-events: none;
-    background:
-      radial-gradient(60vw 60vw at 12% 8%, rgba(32,151,208,.10), transparent 60%),
-      radial-gradient(50vw 50vw at 92% 24%, rgba(17,71,136,.22), transparent 65%),
-      radial-gradient(70vw 70vw at 70% 100%, rgba(32,151,208,.07), transparent 70%),
-      linear-gradient(180deg, #0a1220 0%, #0a1220 60%, #0c1426 100%);
-  }
-  .bg::after {
-    content:"";
-    position: absolute; inset: 0;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-    opacity: .55;
+  /* grain overlay — non-negotiable */
+  .grain {
+    position: fixed; inset: 0; z-index: 1; pointer-events: none;
+    opacity: .35;
     mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
   }
 
-  /* ---------- layout ---------- */
-  .wrap {
-    max-width: var(--maxw);
+  /* ============================================================ */
+  /* Site header                                                  */
+  /* ============================================================ */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 2rem;
+    padding: clamp(.8rem,1.6vw,1.1rem) var(--page-gutter);
+    background: rgba(11,11,13,.88);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--bone-faint);
+    font-family: var(--font-mono);
+    font-size: .78rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--bone-dim);
+  }
+  .wordmark {
+    display: inline-flex; align-items: center; gap: 14px;
+    color: var(--bone);
+    text-decoration: none;
+  }
+  .wordmark img {
+    height: 22px;
+    filter: brightness(0) invert(1);
+    opacity: .92;
+  }
+  .wordmark .sep {
+    width: 1px; height: 18px; background: var(--bone-faint);
+  }
+  .wordmark .who {
+    color: var(--bone);
+    letter-spacing: .14em;
+  }
+  .header-meta {
+    justify-self: end;
+    display: inline-flex; align-items: center; gap: .9rem;
+    color: var(--bone);
+  }
+  .header-meta .sep { color: var(--bone-faint); }
+  .header-meta a {
+    color: var(--bone-dim);
+    text-decoration: none;
+    transition: color .25s ease;
+  }
+  .header-meta a:hover { color: var(--bone); }
+  @media (max-width: 720px) {
+    .site-header { grid-template-columns: 1fr auto; gap: 1rem; padding: .8rem 1rem; }
+    .wordmark .sep, .wordmark .who { display: none; }
+  }
+
+  /* ============================================================ */
+  /* Section layout                                               */
+  /* ============================================================ */
+  main { position: relative; z-index: 2; }
+  .section {
+    padding: var(--space-section-y) var(--page-gutter);
+  }
+  .container {
+    max-width: 64rem;
     margin: 0 auto;
-    padding: clamp(24px, 5vw, 56px) clamp(20px, 5vw, 48px) 120px;
   }
 
-  /* ---------- top bar ---------- */
-  .topbar {
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 16px;
-    padding-bottom: 56px;
-  }
-  .brandmark {
-    display: inline-flex; align-items: center; gap: 10px;
-    color: var(--ink-2);
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: .04em;
-    text-transform: uppercase;
-  }
-  .brandmark .dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--brand-2);
-    box-shadow: 0 0 0 4px rgba(32,151,208,.18);
-  }
-  .ai-pill {
-    display: inline-flex; align-items: center; gap: 8px;
-    color: var(--brand-2);
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: .04em;
-    padding: 6px 12px;
-    border: 1px solid rgba(32,151,208,.4);
-    border-radius: 999px;
-    background: rgba(32,151,208,.06);
-    backdrop-filter: blur(8px);
-    text-transform: none;
-  }
-  .ai-pill .spark {
-    width: 7px; height: 7px; border-radius: 50%;
-    background: var(--brand-2);
-    box-shadow: 0 0 8px rgba(32,151,208,.8);
-    animation: pulse 2.6s ease-out infinite;
-  }
-  @keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(32,151,208,.6), 0 0 8px rgba(32,151,208,.8); }
-    70% { box-shadow: 0 0 0 8px rgba(32,151,208,0), 0 0 8px rgba(32,151,208,.8); }
-    100% { box-shadow: 0 0 0 0 rgba(32,151,208,0), 0 0 8px rgba(32,151,208,.8); }
-  }
-
-  /* ---------- hero ---------- */
-  .hero { display: grid; gap: 28px; }
-  .role-line {
-    display: inline-flex; align-items: center; gap: 12px;
-    color: var(--ink-2);
-    font-family: var(--mono);
-    font-size: 13px;
-    letter-spacing: .02em;
-  }
-  .role-line .bar { width: 28px; height: 1px; background: var(--line-strong); }
-
-  h1.name {
-    margin: 0;
-    font-size: clamp(48px, 9vw, 104px);
-    line-height: .96;
-    letter-spacing: -0.035em;
-    font-weight: 700;
-    color: var(--brand-2);
-  }
-  .role {
-    font-size: clamp(20px, 2.4vw, 26px);
-    color: var(--ink-2);
-    font-weight: 400;
-    margin: 0;
-    max-width: 36ch;
-  }
-  .role strong { color: var(--ink); font-weight: 600; }
-
-  /* ---------- about ---------- */
-  .about {
-    margin-top: 56px;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 24px;
-    max-width: 70ch;
-  }
-  .about p {
-    font-size: 17px;
-    color: var(--ink);
-    margin: 0;
-  }
-  .stats {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0,1fr));
-    gap: 1px;
-    background: var(--line);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
+  /* ============================================================ */
+  /* Hero                                                         */
+  /* ============================================================ */
+  .hero {
+    position: relative;
+    isolation: isolate;
     overflow: hidden;
-    margin-top: 8px;
+    min-height: calc(100svh - 64px);
+    background: radial-gradient(120% 80% at 85% 15%, #16161B 0%, var(--ink) 55%, #050507 100%);
+    display: grid;
+    grid-template-rows: 1fr auto;
+    padding: clamp(2rem,6vh,5rem) var(--page-gutter);
+    gap: clamp(1.5rem,4vh,3rem);
   }
-  .stat {
-    background: var(--surface);
-    padding: 18px 18px;
+  .hero__content {
+    align-self: end;
+    position: relative;
+    z-index: 2;
+    display: grid;
+    gap: clamp(.9rem,2vh,1.7rem);
+    max-width: 64rem;
   }
-  .stat .v {
-    font-family: var(--mono);
-    font-size: clamp(24px, 4vw, 32px);
-    color: var(--ink);
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    line-height: 1;
-  }
-  .stat .l {
-    margin-top: 6px;
-    font-size: 12px;
-    color: var(--ink-3);
-    font-family: var(--mono);
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: .7rem;
+    font-family: var(--font-mono);
+    font-size: var(--type-utility);
+    letter-spacing: .22em;
     text-transform: uppercase;
-    letter-spacing: .06em;
-  }
-
-  /* ---------- section headers ---------- */
-  .section-h {
-    display: flex; align-items: baseline; gap: 14px;
-    margin: 96px 0 28px;
-  }
-  .section-h .num {
-    font-family: var(--mono);
-    color: var(--brand-2);
-    font-size: 12px;
-    letter-spacing: .08em;
-  }
-  .section-h h2 {
+    color: var(--signal);
     margin: 0;
-    font-size: clamp(20px, 2.6vw, 26px);
-    font-weight: 600;
-    letter-spacing: -0.015em;
+    opacity: 0;
+    animation: reveal .9s var(--ease-out) .15s forwards;
   }
-  .section-h .rule {
-    flex: 1; height: 1px; background: var(--line);
+  .neuron {
+    position: relative;
+    display: inline-block;
+    width: 14px; height: 14px;
+    flex: 0 0 14px;
+  }
+  .neuron__core {
+    position: absolute; top: 50%; left: 50%;
+    width: 5px; height: 5px;
+    border-radius: 999px;
+    background: var(--signal);
+    transform: translate(-50%,-50%);
+    box-shadow: 0 0 8px 0 rgba(var(--signal-rgb), .55);
+    animation: neuron-core 2s ease-in-out infinite;
+  }
+  .neuron::before, .neuron::after {
+    content: ""; position: absolute; top: 50%; left: 50%;
+    width: 5px; height: 5px; border-radius: 999px;
+    border: 1px solid var(--signal);
+    transform: translate(-50%,-50%) scale(1);
+    opacity: .7;
+    animation: neuron-pulse 2s ease-out infinite;
+  }
+  .neuron::after { animation-delay: 1s; }
+  @keyframes neuron-core {
+    0%,100% { transform: translate(-50%,-50%) scale(1); opacity: 1; }
+    50%     { transform: translate(-50%,-50%) scale(1.3); opacity: .8; }
+  }
+  @keyframes neuron-pulse {
+    0%   { transform: translate(-50%,-50%) scale(1); opacity: .75; }
+    80%  { opacity: 0; }
+    100% { transform: translate(-50%,-50%) scale(3.6); opacity: 0; }
   }
 
-  /* ---------- stack chips ---------- */
-  .stack {
-    display: flex; flex-wrap: wrap; gap: 8px;
+  .hero__title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: var(--type-hero);
+    line-height: .96;
+    letter-spacing: -0.02em;
+    color: var(--bone);
   }
-  .chip {
-    font-family: var(--mono);
-    font-size: 13px;
-    padding: 7px 12px;
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    color: var(--ink);
-    background: linear-gradient(180deg, rgba(22,36,61,.6), rgba(18,29,51,.6));
-    transition: border-color .18s ease, color .18s ease, transform .18s ease;
+  .hero__title-line {
+    display: block;
+    opacity: 0;
+    transform: translateY(14px);
+    animation: reveal .95s var(--ease-out) forwards;
   }
-  .chip:hover { border-color: var(--brand-2); color: var(--brand-2); transform: translateY(-1px); }
-  .chip.ai {
-    color: var(--brand-2);
-    border-color: rgba(32,151,208,.45);
-    background: linear-gradient(180deg, rgba(32,151,208,.10), rgba(17,71,136,.18));
-    box-shadow: inset 0 0 0 1px rgba(32,151,208,.06);
+  .hero__title em {
+    font-style: italic;
+    color: var(--signal);
+    padding: 0 .04em;
   }
-  .chip.ai::before {
-    content: "";
+
+  .hero__lead {
+    margin: 0;
+    margin-block: clamp(.5rem,2vh,1.4rem);
+    max-width: 44rem;
+    font-size: var(--type-lead);
+    line-height: 1.55;
+    color: var(--bone-dim);
+    opacity: 0;
+    animation: reveal .9s var(--ease-out) .85s forwards;
+  }
+  .hero__lead strong { color: var(--bone); font-weight: 600; }
+
+  .hero__actions {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 1.5rem;
+    opacity: 0;
+    animation: reveal .9s var(--ease-out) 1s forwards;
+  }
+  .hero__footer {
+    position: relative; z-index: 2;
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem;
+    padding-top: 1rem;
+    border-top: 1px dashed var(--bone-faint);
+    font-family: var(--font-mono);
+    font-size: var(--type-micro);
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--bone-dim);
+  }
+  .hero__footer .beacon {
     display: inline-block;
     width: 6px; height: 6px;
     border-radius: 50%;
-    background: var(--brand-2);
-    margin-right: 8px;
+    background: var(--plasma);
+    box-shadow: 0 0 0 0 var(--plasma);
+    animation: beacon 2.6s ease-in-out infinite;
+    margin-right: .55rem;
     vertical-align: middle;
-    box-shadow: 0 0 8px rgba(32,151,208,.7);
   }
-  .chip.ai:hover { border-color: var(--brand-2); color: #cfe9f7; transform: translateY(-1px); }
-
-  /* ---------- projects ---------- */
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0,1fr));
-    gap: 14px;
+  @keyframes beacon {
+    0%,100% { box-shadow: 0 0 0 0 currentColor; opacity: 1; }
+    50%     { box-shadow: 0 0 0 6px rgba(0,0,0,0); opacity: .6; }
   }
-  .grid .card.full { grid-column: 1 / -1; }
-  @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } .grid .card.full { grid-column: auto; } }
+  .hero__footer .sep { color: var(--bone-faint); margin: 0 .5rem; }
+  .hero__footer .num { color: var(--signal); }
+  .hero__footer .stack-eyebrow {
+    display: inline-flex; align-items: center; gap: .7rem;
+  }
+  .hero__footer .stack-eyebrow .bar {
+    position: relative; width: 44px; height: 1px; background: var(--bone-faint); overflow: hidden;
+  }
+  .hero__footer .stack-eyebrow .bar::after {
+    content: ""; position: absolute; inset: 0;
+    background: var(--signal);
+    transform-origin: left;
+    animation: hint-bar 2.4s var(--ease-snap) infinite;
+  }
+  @keyframes hint-bar {
+    0%   { transform: scaleX(0); transform-origin: left; }
+    50%  { transform: scaleX(1); transform-origin: left; }
+    50.1%{ transform: scaleX(1); transform-origin: right; }
+    100% { transform: scaleX(0); transform-origin: right; }
+  }
 
-  .card {
+  /* ============================================================ */
+  /* CTA button                                                   */
+  /* ============================================================ */
+  .cta {
+    --cta-pad-y: .95rem;
+    --cta-pad-x: 1.6rem;
     position: relative;
-    padding: 22px 22px 24px;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    background: linear-gradient(180deg, rgba(22,36,61,.55), rgba(14,23,41,.7));
-    transition: border-color .25s ease, transform .25s ease, background .25s ease;
+    isolation: isolate;
+    display: inline-flex; align-items: center; gap: .9rem;
+    padding: var(--cta-pad-y) var(--cta-pad-x);
+    border: 1px solid var(--bone);
+    border-radius: 999px;
+    color: var(--bone);
+    text-decoration: none;
+    font-family: var(--font-body);
+    font-size: .98rem;
+    font-weight: 500;
     overflow: hidden;
+    cursor: pointer;
+    transition: color .5s var(--ease-snap), border-color .5s var(--ease-snap), box-shadow .6s ease;
+  }
+  .cta::before {
+    content: ""; position: absolute; inset: 0; z-index: -1;
+    background: var(--signal);
+    transform: translateX(-101%);
+    transition: transform .55s var(--ease-snap);
+  }
+  .cta:hover, .cta:focus-visible {
+    color: var(--ink);
+    border-color: var(--signal);
+    box-shadow: 0 0 60px -10px var(--haze);
+    outline: none;
+  }
+  .cta:hover::before, .cta:focus-visible::before { transform: translateX(0); }
+  .cta__arrow { display: inline-flex; transition: transform .5s var(--ease-snap); }
+  .cta:hover .cta__arrow { transform: translateX(6px); }
+
+  .ghost {
+    display: inline-flex; align-items: center; gap: .6rem;
+    color: var(--bone-dim);
+    text-decoration: none;
+    font-size: .92rem;
+    padding: .5rem 0;
+    border-bottom: 1px solid var(--bone-faint);
+    transition: color .3s ease, border-color .3s ease;
+  }
+  .ghost:hover { color: var(--bone); border-color: var(--bone); }
+  .ghost__count {
+    font-family: var(--font-mono);
+    font-size: .7rem;
+    letter-spacing: .12em;
+    padding: .15rem .45rem;
+    border: 1px solid var(--bone-faint);
+    border-radius: 4px;
+    color: var(--bone);
+  }
+
+  /* ============================================================ */
+  /* Section header                                               */
+  /* ============================================================ */
+  .section-h {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+  .section-h h2 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: var(--type-h2);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    color: var(--bone);
+  }
+  .section-h h2 em {
+    font-style: italic;
+    color: var(--signal);
+  }
+  .section-h .num {
+    font-family: var(--font-mono);
+    font-size: var(--type-utility);
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--bone-dim);
+  }
+
+  /* ============================================================ */
+  /* About                                                        */
+  /* ============================================================ */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+  }
+  @media (max-width: 760px) {
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  }
+  .about-lede {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.25rem, 2vw, 1.75rem);
+    line-height: 1.35;
+    letter-spacing: -0.015em;
+    color: var(--bone);
+    max-width: 32ch;
+  }
+  .about-lede em { font-style: italic; color: var(--signal); }
+  .about-lede strong { font-weight: 700; }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--bone-faint);
+    border-bottom: 1px solid var(--bone-faint);
+  }
+  .stat {
+    padding: 1.25rem 1rem 1.25rem 0;
+    border-right: 1px solid var(--bone-faint);
+  }
+  .stat:last-child { border-right: 0; padding-right: 0; }
+  .stat .v {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    line-height: 1;
+    letter-spacing: -0.025em;
+    color: var(--bone);
+    font-variant-numeric: tabular-nums;
+  }
+  .stat .l {
+    margin-top: .55rem;
+    font-family: var(--font-mono);
+    font-size: var(--type-micro);
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--bone-dim);
+  }
+
+  /* ============================================================ */
+  /* Tech stack — editorial list                                  */
+  /* ============================================================ */
+  .stack-list {
+    border-top: 1px solid var(--bone-faint);
+  }
+  .stack-row {
+    display: grid;
+    grid-template-columns: 130px 1fr auto;
+    gap: 1.5rem;
+    align-items: baseline;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--bone-faint);
+  }
+  .stack-row .k {
+    font-family: var(--font-mono);
+    font-size: var(--type-utility);
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--bone-dim);
+  }
+  .stack-row .v {
+    font-family: var(--font-display);
+    font-size: clamp(1rem, 1.3vw, 1.2rem);
+    font-weight: 500;
+    color: var(--bone);
+    letter-spacing: -0.005em;
+  }
+  .stack-row .v em { font-style: italic; color: var(--signal); font-weight: 500; }
+  .stack-row .note {
+    font-family: var(--font-mono);
+    font-size: var(--type-micro);
+    color: var(--bone-dim);
+    letter-spacing: .06em;
+    text-align: right;
+  }
+  @media (max-width: 600px) {
+    .stack-row { grid-template-columns: 100px 1fr; }
+    .stack-row .note { grid-column: 2; text-align: left; padding-top: .25rem; }
+  }
+
+  /* AI row highlight */
+  .stack-row.is-ai .v::before {
+    content: "";
+    display: inline-block;
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--signal);
+    box-shadow: 0 0 8px 0 rgba(var(--signal-rgb), .6);
+    margin-right: .65rem;
+    vertical-align: middle;
+  }
+
+  /* ============================================================ */
+  /* References (projects) — editorial rows                       */
+  /* ============================================================ */
+  .refs {
+    border-top: 1px solid var(--bone-faint);
+  }
+  .ref {
+    position: relative;
+    display: grid;
+    grid-template-columns: 56px 1fr auto;
+    gap: 1.5rem;
+    align-items: baseline;
+    padding: 1.8rem 0;
+    border-bottom: 1px solid var(--bone-faint);
+    color: inherit;
+    text-decoration: none;
+    transition: background .25s ease;
     isolation: isolate;
   }
-  .card::before {
-    content:"";
-    position: absolute; inset: 0;
-    background: radial-gradient(420px 200px at var(--mx,50%) var(--my,0%), rgba(32,151,208,.10), transparent 60%);
+  .ref::before {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(90deg, rgba(var(--signal-rgb), .04), transparent 70%);
     opacity: 0;
-    transition: opacity .25s ease;
+    transition: opacity .35s ease;
     z-index: -1;
   }
-  .card:hover {
-    border-color: var(--line-strong);
-    transform: translateY(-2px);
+  .ref:hover::before { opacity: 1; }
+  .ref .num {
+    font-family: var(--font-mono);
+    font-size: var(--type-utility);
+    letter-spacing: .14em;
+    color: var(--bone-dim);
+    transition: color .25s ease;
+    padding-top: .15rem;
   }
-  .card:hover::before { opacity: 1; }
-  .card-head {
-    display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 14px;
+  .ref:hover .num { color: var(--signal); }
+  .ref .body {
+    min-width: 0;
   }
-  .card-key {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--ink-3);
-    letter-spacing: .08em;
+  .ref .body h3 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.3rem, 2vw, 1.75rem);
+    letter-spacing: -0.015em;
+    line-height: 1.15;
+    color: var(--bone);
+    display: inline-flex; align-items: baseline; gap: .5rem;
+  }
+  .ref .body h3 .arrow {
+    color: var(--bone-dim);
+    transition: transform .3s var(--ease-snap), color .3s ease;
+    font-size: .85em;
+  }
+  .ref:hover .body h3 .arrow {
+    transform: translateX(6px);
+    color: var(--signal);
+  }
+  .ref .body .desc {
+    margin: .55rem 0 0;
+    font-size: var(--type-body);
+    color: var(--bone-dim);
+    line-height: 1.55;
+    max-width: 56ch;
+  }
+  .ref .chips {
+    display: flex; flex-wrap: wrap; gap: .35rem;
+    margin-top: .85rem;
+  }
+  .ref .chip {
+    font-family: var(--font-mono);
+    font-size: .62rem;
+    letter-spacing: .06em;
+    padding: .2rem .55rem;
+    border-radius: 3px;
+    border: 1px solid var(--bone-faint);
+    color: var(--bone-dim);
+    white-space: nowrap;
     text-transform: uppercase;
   }
-  .card-client {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--brand-2);
-    letter-spacing: .04em;
+  .ref .chip.is-accent {
+    border-color: color-mix(in srgb, var(--signal) 40%, transparent);
+    color: var(--signal);
+    background: rgba(var(--signal-rgb), .05);
   }
-  .card h3 {
-    margin: 0 0 8px;
-    font-size: 22px;
-    font-weight: 600;
-    letter-spacing: -0.015em;
+  .ref .client {
+    font-family: var(--font-mono);
+    font-size: var(--type-micro);
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--bone-dim);
+    text-align: right;
+    white-space: nowrap;
+    padding-top: .35rem;
   }
-  .card p {
-    margin: 0;
-    color: var(--ink-2);
-    font-size: 14.5px;
-    line-height: 1.55;
-  }
-  .card-tags {
-    margin-top: 16px;
-    display: flex; flex-wrap: wrap; gap: 6px;
-  }
-  .tag {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--ink-3);
-    padding: 3px 8px;
-    border-radius: 6px;
-    background: rgba(255,255,255,.03);
-    border: 1px solid var(--line);
+  .ref:hover .client { color: var(--bone); }
+  @media (max-width: 640px) {
+    .ref { grid-template-columns: 36px 1fr; gap: 1rem; padding: 1.6rem 0; }
+    .ref .client { grid-column: 2; text-align: left; padding-top: .6rem; }
   }
 
-  /* ---------- contact rail (desktop) ---------- */
-  .rail {
-    position: fixed;
-    top: 50%;
-    right: 28px;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    z-index: 10;
-  }
-  .rail a, .rail button {
-    display: inline-flex; align-items: center; justify-content: center;
-    width: 44px; height: 44px;
-    border-radius: 999px;
-    border: 1px solid var(--line);
-    background: rgba(18,29,51,.7);
-    backdrop-filter: blur(10px);
-    color: var(--ink-2);
-    cursor: pointer;
-    text-decoration: none;
-    transition: color .18s ease, border-color .18s ease, transform .18s ease, background .18s ease;
-  }
-  .rail a:hover, .rail button:hover {
-    color: var(--brand-2);
-    border-color: var(--brand-2);
-    transform: translateY(-1px);
-  }
-  .rail a:focus-visible, .rail button:focus-visible {
-    outline: 2px solid var(--brand-2);
-    outline-offset: 3px;
-  }
-  .rail svg { width: 18px; height: 18px; }
-  @media (max-width: 960px) { .rail { display: none; } }
-
-  /* ---------- contact section ---------- */
+  /* ============================================================ */
+  /* Contact                                                      */
+  /* ============================================================ */
   .contacts {
-    margin-top: 0;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 14px;
+    gap: 1rem;
   }
-  @media (max-width: 720px) { .contacts { grid-template-columns: 1fr; } }
-
+  @media (max-width: 640px) { .contacts { grid-template-columns: 1fr; } }
   .ccard {
-    display: flex; align-items: center; gap: 14px;
-    padding: 20px;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    background: linear-gradient(180deg, rgba(22,36,61,.55), rgba(14,23,41,.7));
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    border: 1px solid var(--bone-faint);
+    border-radius: var(--radius-md);
+    background: rgba(var(--bone-rgb), .02);
+    color: var(--bone);
     text-decoration: none;
-    color: var(--ink);
-    position: relative;
-    transition: border-color .2s ease, transform .2s ease;
+    transition: border-color .35s var(--ease-out), transform .35s var(--ease-out), box-shadow .35s ease;
   }
-  .ccard:hover { border-color: var(--brand-2); transform: translateY(-1px); }
-  .ccard:focus-visible { outline: 2px solid var(--brand-2); outline-offset: 3px; }
+  .ccard:hover {
+    transform: translateY(-3px);
+    border-color: rgba(var(--signal-rgb), .35);
+    box-shadow: 0 12px 32px -16px rgba(var(--signal-rgb), .18);
+  }
+  .ccard:focus-visible {
+    outline: 2px solid var(--signal);
+    outline-offset: 3px;
+  }
   .ccard .ic {
-    flex: none;
-    width: 38px; height: 38px;
-    border-radius: 10px;
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    background: rgba(var(--signal-rgb), .08);
+    border: 1px solid color-mix(in srgb, var(--signal) 25%, transparent);
+    color: var(--signal);
     display: grid; place-items: center;
-    background: rgba(32,151,208,.10);
-    color: var(--brand-2);
-    border: 1px solid rgba(32,151,208,.25);
   }
   .ccard .ic svg { width: 18px; height: 18px; }
   .ccard .l {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--ink-3);
-    letter-spacing: .08em;
+    font-family: var(--font-mono);
+    font-size: var(--type-micro);
+    letter-spacing: .18em;
     text-transform: uppercase;
+    color: var(--bone-dim);
   }
   .ccard .v {
-    font-size: 17px;
-    margin-top: 2px;
-    color: var(--ink);
+    margin-top: .2rem;
+    font-size: 1.05rem;
+    color: var(--bone);
+    font-weight: 500;
   }
-  .ccard .copy {
-    margin-left: auto;
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--ink-3);
-    padding: 5px 8px;
-    border-radius: 6px;
-    border: 1px solid var(--line);
-    background: rgba(255,255,255,.02);
-    cursor: pointer;
-    transition: color .18s ease, border-color .18s ease, background .18s ease;
-  }
-  .ccard .copy:hover { color: var(--brand-2); border-color: var(--brand-2); }
-  .ccard .copy.copied { color: #4ade80; border-color: rgba(74,222,128,.4); background: rgba(74,222,128,.08); }
-  .ccard .copy:focus-visible { outline: 2px solid var(--brand-2); outline-offset: 2px; }
 
-  /* ---------- CTA ---------- */
-  a.cta-card {
+  /* ============================================================ */
+  /* Sign-off card                                                */
+  /* ============================================================ */
+  .signoff {
+    margin-top: 2.5rem;
     display: grid;
     grid-template-columns: 1fr auto;
     align-items: center;
-    gap: 28px;
-    margin-top: 24px;
-    padding: 28px 28px 28px 32px;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    padding: clamp(1.75rem, 3vw, 2.5rem);
+    border: 1px solid var(--bone-faint);
+    border-radius: var(--radius-lg);
     background:
-      radial-gradient(80% 180% at 0% 0%, rgba(17,71,136,.35), transparent 60%),
-      linear-gradient(180deg, rgba(22,36,61,.55), rgba(14,23,41,.65));
+      radial-gradient(80% 180% at 0% 0%, rgba(var(--signal-rgb), .06), transparent 60%),
+      rgba(var(--bone-rgb), .02);
+    color: var(--bone);
     text-decoration: none;
-    color: inherit;
     position: relative;
     isolation: isolate;
-    transition: border-color .25s ease, transform .25s ease, background .25s ease;
-    overflow: hidden;
+    transition: border-color .35s var(--ease-out), transform .35s var(--ease-out), box-shadow .35s ease;
   }
-  a.cta-card::before {
-    content: ""; position: absolute; inset: 0;
-    background: radial-gradient(500px 240px at var(--mx,80%) var(--my,50%), rgba(32,151,208,.12), transparent 60%);
-    opacity: 0;
-    transition: opacity .3s ease;
-    z-index: -1;
+  .signoff:hover {
+    border-color: rgba(var(--signal-rgb), .35);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px -16px rgba(var(--signal-rgb), .18);
   }
-  a.cta-card:hover { border-color: var(--brand-2); transform: translateY(-1px); }
-  a.cta-card:hover::before { opacity: 1; }
-  a.cta-card:focus-visible { outline: 2px solid var(--brand-2); outline-offset: 3px; }
-
-  a.cta-card .ctakicker {
-    display: inline-flex; align-items: center; gap: 10px;
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--brand-2);
-    letter-spacing: .14em;
+  .signoff:focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; }
+  .signoff .eyebrow-tiny {
+    display: inline-flex; align-items: center; gap: .55rem;
+    font-family: var(--font-mono);
+    font-size: var(--type-micro);
+    letter-spacing: .18em;
     text-transform: uppercase;
-    margin-bottom: 14px;
+    color: var(--bone-dim);
+    margin-bottom: .9rem;
   }
-  a.cta-card .ctakicker::before {
-    content: ""; width: 18px; height: 1px; background: var(--brand-2);
+  .signoff .eyebrow-tiny::before {
+    content: ""; width: 18px; height: 1px; background: var(--signal);
   }
-  a.cta-card p {
+  .signoff p {
     margin: 0;
-    color: var(--ink-2);
-    font-size: 15.5px;
+    color: var(--bone-dim);
+    font-size: 1rem;
     line-height: 1.6;
     max-width: 56ch;
   }
-  a.cta-card p strong { color: var(--ink); font-weight: 600; }
-  a.cta-card p .acc { color: var(--brand-2); }
-
-  a.cta-card .ctago {
-    display: inline-flex; align-items: center; gap: 12px;
-    font-family: var(--mono);
-    font-size: 13px;
-    letter-spacing: .04em;
-    color: var(--ink);
+  .signoff p strong { color: var(--bone); font-weight: 600; }
+  .signoff p em { font-style: italic; color: var(--signal); }
+  .signoff .go {
+    display: inline-flex; align-items: center; gap: 1rem;
+    font-family: var(--font-mono);
+    font-size: .82rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--bone);
     white-space: nowrap;
-    padding-right: 4px;
   }
-  a.cta-card .ctago .domain { color: var(--ink); }
-  a.cta-card .ctago .arrow {
-    width: 36px; height: 36px;
+  .signoff .go .arrow {
+    width: 44px; height: 44px;
     border-radius: 50%;
-    border: 1px solid var(--line-strong);
+    border: 1px solid var(--bone-faint);
     display: grid; place-items: center;
-    color: var(--brand-2);
-    transition: border-color .25s ease, background .25s ease, transform .25s ease;
+    color: var(--bone);
+    transition: border-color .35s var(--ease-out), background .35s var(--ease-out), color .35s var(--ease-out);
   }
-  a.cta-card:hover .ctago .arrow {
-    border-color: var(--brand-2);
-    background: var(--brand-2);
-    color: #06182a;
-  }
-  a.cta-card .ctago .arrow svg { transition: transform .2s ease; transform: translateX(-1px); display: block; }
-  a.cta-card:hover .ctago .arrow svg { transform: translateX(1px); }
-
-  @media (max-width: 640px) {
-    a.cta-card { grid-template-columns: 1fr; gap: 20px; padding: 24px; }
-    a.cta-card .ctago { justify-content: space-between; }
-  }
-
-  /* ---------- footer ---------- */
-  footer {
-    margin-top: 80px;
-    padding-top: 24px;
-    border-top: 1px solid var(--line);
-    display: flex; justify-content: space-between; align-items: center;
-    flex-wrap: wrap; gap: 14px;
-    color: var(--ink-3);
-    font-family: var(--mono);
-    font-size: 12px;
-  }
-  footer a { color: var(--ink-3); text-decoration: none; }
-  footer a:hover { color: var(--brand-2); }
-
-  /* ---------- toast ---------- */
-  .toast {
-    position: fixed;
-    left: 50%;
-    bottom: 28px;
-    transform: translate(-50%, 30px);
-    background: #16243d;
+  .signoff:hover .go .arrow {
+    border-color: var(--signal);
+    background: var(--signal);
     color: var(--ink);
-    padding: 10px 16px;
-    border-radius: 999px;
-    border: 1px solid var(--line-strong);
-    font-family: var(--mono);
-    font-size: 13px;
-    opacity: 0;
-    transition: opacity .2s ease, transform .2s ease;
-    pointer-events: none;
-    z-index: 100;
-    box-shadow: 0 10px 30px -10px rgba(0,0,0,.6);
   }
-  .toast.show { opacity: 1; transform: translate(-50%, 0); }
-  .toast::before {
-    content: "";
-    display: inline-block;
-    width: 7px; height: 7px;
-    border-radius: 50%;
-    background: #4ade80;
-    margin-right: 8px;
-    vertical-align: middle;
+  .signoff .go .arrow svg { transition: transform .3s var(--ease-snap); }
+  .signoff:hover .go .arrow svg { transform: translateX(2px); }
+  @media (max-width: 640px) {
+    .signoff { grid-template-columns: 1fr; gap: 1.25rem; }
+    .signoff .go { justify-content: space-between; }
   }
 
-  /* ---------- scroll reveal ---------- */
-  .reveal { opacity: 0; transform: translateY(14px); transition: opacity .7s ease, transform .7s ease; }
+  /* ============================================================ */
+  /* Footer                                                       */
+  /* ============================================================ */
+  .site-footer {
+    padding: 2.5rem var(--page-gutter);
+    border-top: 1px solid var(--bone-faint);
+    display: flex; flex-wrap: wrap; gap: 1rem;
+    justify-content: space-between; align-items: center;
+    font-family: var(--font-mono);
+    font-size: var(--type-micro);
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--bone-dim);
+  }
+  .site-footer a { color: var(--bone-dim); text-decoration: none; transition: color .25s ease; }
+  .site-footer a:hover { color: var(--signal); }
+  .site-footer .sep { color: var(--bone-faint); margin: 0 .5rem; }
+
+  /* ============================================================ */
+  /* Reveal pattern                                               */
+  /* ============================================================ */
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity .9s var(--ease-out), transform .9s var(--ease-out); }
   .reveal.in { opacity: 1; transform: none; }
 
-  /* ---------- reduced motion ---------- */
+  @keyframes reveal { to { opacity: 1; transform: translateY(0); } }
+
+  /* ============================================================ */
+  /* Selection, focus                                             */
+  /* ============================================================ */
+  ::selection { background: rgba(var(--signal-rgb), .35); color: var(--bone); }
+  a:focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; border-radius: 3px; }
+  :focus:not(:focus-visible) { outline: none; }
+
+  /* ============================================================ */
+  /* Reduced motion                                               */
+  /* ============================================================ */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
     .reveal { opacity: 1; transform: none; }
+    .hero__title-line, .hero__lead, .hero__actions, .eyebrow { opacity: 1 !important; transform: none !important; }
   }
 
-  /* ---------- print ---------- */
+  /* ============================================================ */
+  /* Print                                                        */
+  /* ============================================================ */
   @media print {
     @page { margin: 14mm; }
     html, body { background: #fff !important; color: #000 !important; }
-    .bg, .rail, .toast, .ai-pill { display: none !important; }
-    a.cta-card { background: #fff !important; border-color: #ccc !important; color: #000 !important; }
-    a.cta-card p, a.cta-card p strong, a.cta-card p .acc, a.cta-card .ctakicker, a.cta-card .ctago, a.cta-card .ctago .domain { color: #000 !important; }
-    a.cta-card .ctago .arrow { border-color: #114788 !important; color: #114788 !important; background: transparent !important; }
-    .wrap { padding: 0; max-width: 100%; }
-    h1.name { color: #114788 !important; background: none !important; -webkit-text-fill-color: #114788 !important; }
-    .role, .role-line, .brandmark, .stat .v, .stat .l, .card h3, .card p, .ccard .v, .ccard .l, footer { color: #000 !important; }
-    .card, .ccard, .stat, .chip, .tag {
-      background: #fff !important;
-      border-color: #ccc !important;
+    .grain, .site-header, .hero__footer, .site-footer, .signoff { display: none !important; }
+    .hero {
+      background: none !important;
+      min-height: 0;
+      padding: 0 0 1.5rem;
+    }
+    .section { padding: 1.5rem 0; }
+    .hero__title, .hero__title em, .stack-row .v em, .about-lede em, .signoff p em, .section-h h2 em, .ref:hover .body h3 .arrow {
+      color: var(--havit-blue-dark) !important;
+    }
+    .hero__title, .about-lede, .stack-row .v, .ref .body h3, .ccard .v, .stat .v {
       color: #000 !important;
     }
-    .chip, .tag, .card-key, .card-client { color: #114788 !important; }
-    a { color: #114788 !important; text-decoration: underline; }
-    .section-h .rule { background: #ccc !important; }
+    .eyebrow, .stack-row .k, .ref .num, .ref .body .desc, .ref .client, .ccard .l, .stat .l, .hero__lead {
+      color: #333 !important;
+    }
+    .stats, .stack-list, .stack-row, .refs, .ref, .ccard, .container { border-color: #ccc !important; background: transparent !important; }
+    .chip { border-color: #ccc !important; color: #333 !important; background: transparent !important; }
+    .chip.is-accent { color: var(--havit-blue-dark) !important; border-color: var(--havit-blue-light) !important; }
     .reveal { opacity: 1 !important; transform: none !important; }
+    .cta { color: #000 !important; border-color: var(--havit-blue-dark) !important; }
+    .cta::before { display: none !important; }
   }
-
-  ::selection { background: rgba(32,151,208,.4); color: #fff; }
-  a { color: var(--brand-2); }
-  a:focus-visible { outline: 2px solid var(--brand-2); outline-offset: 3px; border-radius: 3px; }
 </style>
 </head>
 <body>
 
-<div class="bg" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
 
-<aside class="rail" aria-label="Kontakty">
-  <a href="mailto:nabelek@havit.cz" aria-label="Napsat e-mail" title="nabelek@havit.cz">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>
-    </svg>
+<header class="site-header">
+  <a class="wordmark" href="https://havit.cz/" target="_blank" rel="noopener" aria-label="HAVIT">
+    <img src="havit/havit-logo.svg" alt="HAVIT">
+    <span class="sep" aria-hidden="true"></span>
+    <span class="who">Jakub Nábělek</span>
   </a>
-  <a href="tel:+420777311132" aria-label="Zavolat" title="+420 777 311 132">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92Z"/>
-    </svg>
-  </a>
-  <a href="https://havit.cz/" target="_blank" rel="noopener" aria-label="HAVIT.cz" title="havit.cz">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>
-    </svg>
-  </a>
-</aside>
+  <span></span>
+  <div class="header-meta">
+    <span><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--signal);box-shadow:0 0 0 3px rgba(var(--signal-rgb),.18);vertical-align:middle;margin-right:.6rem;"></span>Praha</span>
+    <span class="sep">·</span>
+    <a href="mailto:nabelek@havit.cz">nabelek@havit.cz</a>
+  </div>
+</header>
 
-<main class="wrap">
-  <header class="topbar">
-    <span class="brandmark"><span class="dot" aria-hidden="true"></span>HAVIT · Praha</span>
-  </header>
+<main>
 
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
   <section class="hero">
-    <div class="role-line"><span class="bar" aria-hidden="true"></span>Team Leader &amp; Project Manager</div>
-    <h1 class="name">Jakub Nábělek</h1>
-    <p class="role">Vedu tým, který staví <strong>webové a mobilní aplikace</strong> pro brokery, lékaře, interní projekty a další obory.</p>
-  </section>
+    <div class="hero__content">
+      <p class="eyebrow">
+        <span class="neuron" aria-hidden="true"><span class="neuron__core"></span></span>
+        <span>Where humans and agents ship together</span>
+      </p>
 
-  <section class="about reveal" aria-labelledby="about-h">
-    <p id="about-h">
-      <strong>11 let v HAVITu</strong>, vedu sedmičlenný tým. Stojíme za platformami pro
-      BrokerTrust (BeTy2, Poradce v Apce, Autorizační modul – SSO), aplikací Těhotenský průkaz pro MedApps
-      a identity systémem AIMEE pro VWFS. Kromě tradičního vývoje softwaru se věnujeme i využití <strong>AI</strong>
-      v aplikacích, procesech a potřebách zákazníků — a implementaci <strong>agentních systémů</strong> pro zefektivnění procesů.
-    </p>
-    <div class="stats" role="list">
-      <div class="stat" role="listitem"><div class="v">11</div><div class="l">let v HAVIT</div></div>
-      <div class="stat" role="listitem"><div class="v">7</div><div class="l">členný tým</div></div>
-      <div class="stat" role="listitem"><div class="v">8</div><div class="l">aktivních produktů</div></div>
-    </div>
-  </section>
+      <h1 class="hero__title">
+        <span class="hero__title-line" style="animation-delay: .28s;">Jakub</span>
+        <span class="hero__title-line" style="animation-delay: .42s;"><em>Nábělek</em></span>
+      </h1>
 
-  <section class="reveal" aria-labelledby="stack-h">
-    <div class="section-h">
-      <span class="num">01</span>
-      <h2 id="stack-h">Tech stack</h2>
-      <span class="rule" aria-hidden="true"></span>
-    </div>
-    <div class="stack">
-      <span class="chip">.NET MAUI Blazor Hybrid</span>
-      <span class="chip">ASP.NET Core</span>
-      <span class="chip">Blazor</span>
-      <span class="chip">Azure</span>
-      <span class="chip">SQL Server / EF Core</span>
-      <span class="chip">HAVIT Blazor komponenty</span>
-      <span class="chip ai">AI agenti</span>
-      <span class="chip ai">LLM integrace</span>
-      <span class="chip">Azure DevOps</span>
-    </div>
-  </section>
+      <p class="hero__lead">
+        Team Leader &amp; Project Manager v <strong>HAVITu</strong>. Vedu sedmičlenný tým, který staví <strong>webové</strong> a <em>mobilní</em> aplikace pro brokery, lékaře, interní projekty a další obory.
+      </p>
 
-  <section class="reveal" aria-labelledby="projects-h">
-    <div class="section-h">
-      <span class="num">02</span>
-      <h2 id="projects-h">Klíčové projekty</h2>
-      <span class="rule" aria-hidden="true"></span>
-    </div>
-    <div class="grid">
-      <article class="card" data-hover>
-        <div class="card-head"><span class="card-key">/01</span><span class="card-client">VWFS</span></div>
-        <h3>AIMEE</h3>
-        <p>Identity management systém — správa uživatelů, rolí a přístupů. Dodáváme pro Volkswagen Financial Services.</p>
-        <div class="card-tags"><span class="tag">Identity</span><span class="tag">ASP.NET Core</span><span class="tag">Azure</span></div>
-      </article>
-      <article class="card" data-hover>
-        <div class="card-head"><span class="card-key">/02</span><span class="card-client">BrokerTrust</span></div>
-        <h3>BeTy2</h3>
-        <p>Druhá generace interní platformy pro brokery — modulární back-office se silnou doménovou logikou.</p>
-        <div class="card-tags"><span class="tag">Web</span><span class="tag">Blazor</span><span class="tag">.NET</span></div>
-      </article>
-      <article class="card" data-hover>
-        <div class="card-head"><span class="card-key">/03</span><span class="card-client">BrokerTrust</span></div>
-        <h3>Poradce v Apce</h3>
-        <p>Mobilní aplikace pro finanční poradce v terénu — offline-first, postavená na .NET MAUI Blazor Hybrid.</p>
-        <div class="card-tags"><span class="tag">.NET MAUI</span><span class="tag">Hybrid</span><span class="tag">iOS / Android</span></div>
-      </article>
-      <article class="card" data-hover>
-        <div class="card-head"><span class="card-key">/04</span><span class="card-client">BrokerTrust</span></div>
-        <h3>Autorizační modul — SSO</h3>
-        <p>Single sign-on a centrální autorizační vrstva napříč BrokerTrust produkty — řízení rolí, oprávnění a politik.</p>
-        <div class="card-tags"><span class="tag">SSO</span><span class="tag">ASP.NET Core</span><span class="tag">Security</span></div>
-      </article>
-      <article class="card full" data-hover>
-        <div class="card-head"><span class="card-key">/05</span><span class="card-client">MedApps</span></div>
-        <h3>Těhotenský průkaz</h3>
-        <p>Digitální průkaz a sledování těhotenství — citlivá data, zaměření na UX a důvěru.</p>
-        <div class="card-tags"><span class="tag">Healthcare</span><span class="tag">Mobile</span><span class="tag">Azure</span></div>
-      </article>
-    </div>
-  </section>
-
-  <section class="reveal" aria-labelledby="contact-h">
-    <div class="section-h">
-      <span class="num">03</span>
-      <h2 id="contact-h">Kontakt</h2>
-      <span class="rule" aria-hidden="true"></span>
-    </div>
-    <div class="contacts">
-      <a class="ccard" href="mailto:nabelek@havit.cz">
-        <span class="ic" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
-        </span>
-        <span>
-          <span class="l">E-mail</span>
-          <span class="v">nabelek@havit.cz</span>
-        </span>
-      </a>
-      <a class="ccard" href="tel:+420777311132">
-        <span class="ic" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92Z"/></svg>
-        </span>
-        <span>
-          <span class="l">Telefon</span>
-          <span class="v">+420 777 311 132</span>
-        </span>
-      </a>
-    </div>
-
-    <a class="cta-card" href="https://havit.cz/" target="_blank" rel="noopener" data-hover>
-      <div>
-        <div class="ctakicker">O HAVIT</div>
-        <p><strong>HAVIT</strong> staví digitální produkty od roku 1997 — od malých mobilních apek po velké platformy. Strategie, design, engineering a <span class="acc">AI agenti</span> pod jednou střechou.</p>
+      <div class="hero__actions">
+        <a class="cta" href="mailto:nabelek@havit.cz">
+          Napište mi
+          <span class="cta__arrow" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </span>
+        </a>
+        <a class="ghost" href="#references">
+          Reference
+          <span class="ghost__count">05</span>
+        </a>
       </div>
-      <div class="ctago">
-        <span class="domain">havit.cz</span>
-        <span class="arrow" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-        </span>
-      </div>
-    </a>
+    </div>
+
+    <div class="hero__footer">
+      <span class="stack-eyebrow">
+        <span class="bar" aria-hidden="true"></span>
+        Scroll · nebo skoč do sekce
+      </span>
+      <span>
+        <span class="beacon" aria-hidden="true"></span>@ HAVIT SINCE 2014
+        <span class="sep">·</span>
+        <span class="num">7</span> v týmu <span class="sep">/</span> <span class="num">8</span> produktů <span class="sep">·</span> web <span class="sep">/</span> <span class="num">mobile</span> <span class="sep">/</span> cloud <span class="sep">/</span> ai
+      </span>
+    </div>
   </section>
 
-  <footer>
-    <span>© <span id="yr"></span> Jakub Nábělek · HAVIT, s.r.o.</span>
-    <span>Praha</span>
-  </footer>
+  <!-- ============================================================
+       ABOUT
+       ============================================================ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-h reveal">
+        <span class="num">01 / about</span>
+        <h2>11 let v <em>HAVITu</em>.</h2>
+      </div>
+
+      <div class="about-grid reveal">
+        <p class="about-lede">
+          Vedu sedmičlenný tým. Stojíme za platformami pro <em>BrokerTrust</em>, aplikací <em>Těhotenský průkaz</em> pro MedApps a identity systémem <em>AIMEE</em> pro VWFS.
+          Kromě tradičního vývoje softwaru se věnujeme i využití AI v aplikacích, procesech a potřebách zákazníků — a implementaci agentních systémů pro zefektivnění procesů.
+        </p>
+
+        <div class="stats">
+          <div class="stat"><div class="v">11</div><div class="l">let v HAVIT</div></div>
+          <div class="stat"><div class="v">7</div><div class="l">v týmu</div></div>
+          <div class="stat"><div class="v">8</div><div class="l">produktů</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       STACK
+       ============================================================ -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="section-h reveal">
+        <span class="num">02 / stack</span>
+        <h2>Tech, na kterém <em>shipujeme</em>.</h2>
+      </div>
+
+      <div class="stack-list reveal">
+        <div class="stack-row">
+          <span class="k">Mobile</span>
+          <span class="v">.NET MAUI Blazor <em>Hybrid</em></span>
+          <span class="note">iOS · Android · Windows</span>
+        </div>
+        <div class="stack-row">
+          <span class="k">Backend</span>
+          <span class="v">ASP.NET Core</span>
+          <span class="note">C# / .NET</span>
+        </div>
+        <div class="stack-row">
+          <span class="k">Web</span>
+          <span class="v">Blazor</span>
+          <span class="note">Static SSR · Interactive</span>
+        </div>
+        <div class="stack-row">
+          <span class="k">Cloud</span>
+          <span class="v">Microsoft <em>Azure</em></span>
+          <span class="note">App Service · Functions · SQL</span>
+        </div>
+        <div class="stack-row">
+          <span class="k">Data</span>
+          <span class="v">SQL Server / EF Core</span>
+          <span class="note">migrace · perf</span>
+        </div>
+        <div class="stack-row">
+          <span class="k">UI Kit</span>
+          <span class="v">HAVIT Blazor komponenty</span>
+          <span class="note">open source</span>
+        </div>
+        <div class="stack-row is-ai">
+          <span class="k">AI</span>
+          <span class="v">Agentní systémy &amp; LLM <em>integrace</em></span>
+          <span class="note">claude · openai · mcp</span>
+        </div>
+        <div class="stack-row">
+          <span class="k">DevOps</span>
+          <span class="v">Azure DevOps</span>
+          <span class="note">CI/CD · review</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       REFERENCES
+       ============================================================ -->
+  <section class="section" id="references" style="padding-top: 0;">
+    <div class="container">
+      <div class="section-h reveal">
+        <span class="num">03 / references</span>
+        <h2>Co jsme <em>shipnuli</em>.</h2>
+      </div>
+
+      <div class="refs reveal">
+        <article class="ref">
+          <span class="num">/01</span>
+          <div class="body">
+            <h3>AIMEE <span class="arrow" aria-hidden="true">→</span></h3>
+            <p class="desc">Identity management systém — správa uživatelů, rolí a přístupů. Dodáváme pro Volkswagen Financial Services.</p>
+            <div class="chips">
+              <span class="chip">Identity</span>
+              <span class="chip">ASP.NET Core</span>
+              <span class="chip">Azure</span>
+            </div>
+          </div>
+          <div class="client">VWFS</div>
+        </article>
+
+        <article class="ref">
+          <span class="num">/02</span>
+          <div class="body">
+            <h3>BeTy2 <span class="arrow" aria-hidden="true">→</span></h3>
+            <p class="desc">Druhá generace platformy pro finanční brokery — modulární back-office se silnou doménovou logikou.</p>
+            <div class="chips">
+              <span class="chip">Web</span>
+              <span class="chip">Blazor</span>
+              <span class="chip">.NET</span>
+            </div>
+          </div>
+          <div class="client">BrokerTrust</div>
+        </article>
+
+        <article class="ref">
+          <span class="num">/03</span>
+          <div class="body">
+            <h3>Poradce v Apce <span class="arrow" aria-hidden="true">→</span></h3>
+            <p class="desc">Mobilní aplikace pro finanční poradce v terénu — offline-first, postavená na .NET MAUI Blazor Hybrid.</p>
+            <div class="chips">
+              <span class="chip">.NET MAUI</span>
+              <span class="chip">Hybrid</span>
+              <span class="chip">iOS · Android</span>
+            </div>
+          </div>
+          <div class="client">BrokerTrust</div>
+        </article>
+
+        <article class="ref">
+          <span class="num">/04</span>
+          <div class="body">
+            <h3>Autorizační modul — SSO <span class="arrow" aria-hidden="true">→</span></h3>
+            <p class="desc">Single sign-on a centrální autorizační vrstva napříč BrokerTrust produkty — řízení rolí, oprávnění a politik.</p>
+            <div class="chips">
+              <span class="chip">SSO</span>
+              <span class="chip">ASP.NET Core</span>
+              <span class="chip">Security</span>
+            </div>
+          </div>
+          <div class="client">BrokerTrust</div>
+        </article>
+
+        <article class="ref">
+          <span class="num">/05</span>
+          <div class="body">
+            <h3>Těhotenský průkaz <span class="arrow" aria-hidden="true">→</span></h3>
+            <p class="desc">Digitální průkaz a sledování těhotenství — citlivá data, zaměření na UX a důvěru.</p>
+            <div class="chips">
+              <span class="chip">Healthcare</span>
+              <span class="chip">Mobile</span>
+              <span class="chip">Azure</span>
+            </div>
+          </div>
+          <div class="client">MedApps</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CONTACT
+       ============================================================ -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="section-h reveal">
+        <span class="num">04 / contact</span>
+        <h2>Talk <em>to me</em>.</h2>
+      </div>
+
+      <div class="contacts reveal">
+        <a class="ccard" href="mailto:nabelek@havit.cz">
+          <span class="ic" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          </span>
+          <span>
+            <span class="l">E-mail</span>
+            <span class="v">nabelek@havit.cz</span>
+          </span>
+        </a>
+        <a class="ccard" href="tel:+420777311132">
+          <span class="ic" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92Z"/></svg>
+          </span>
+          <span>
+            <span class="l">Telefon</span>
+            <span class="v">+420 777 311 132</span>
+          </span>
+        </a>
+      </div>
+
+      <a class="signoff reveal" href="https://havit.cz/" target="_blank" rel="noopener">
+        <div>
+          <div class="eyebrow-tiny">O HAVIT</div>
+          <p><strong>HAVIT</strong> staví digitální produkty od roku 1997 — od malých mobilních aplikací po velké platformy. Strategie, design, engineering a <em>agenti</em> pod jednou střechou.</p>
+        </div>
+        <div class="go">
+          <span>havit.cz</span>
+          <span class="arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </span>
+        </div>
+      </a>
+    </div>
+  </section>
+
 </main>
 
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<footer class="site-footer">
+  <span>© <span id="yr"></span> Jakub Nábělek <span class="sep">·</span> HAVIT, s.r.o.</span>
+  <span><a href="https://havit.cz/" target="_blank" rel="noopener">havit.cz</a></span>
+</footer>
 
 <script>
-  // year
   document.getElementById('yr').textContent = new Date().getFullYear();
 
-  // reveal
-  const io = new IntersectionObserver(es => {
-    es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, { threshold: .12 });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
-  // hover halo on cards
-  document.querySelectorAll('[data-hover]').forEach(card => {
-    card.addEventListener('pointermove', (e) => {
-      const r = card.getBoundingClientRect();
-      card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
-      card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
-    });
-  });
-
-  // copy
-  const toast = document.getElementById('toast');
-  let toastTimer;
-  function showToast(msg) {
-    toast.textContent = msg;
-    toast.classList.add('show');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toast.classList.remove('show'), 1800);
-  }
-  document.querySelectorAll('.copy').forEach(btn => {
-    btn.addEventListener('click', async (e) => {
-      e.preventDefault(); e.stopPropagation();
-      const val = btn.dataset.copy;
-      try {
-        await navigator.clipboard.writeText(val);
-      } catch {
-        const t = document.createElement('textarea'); t.value = val; document.body.appendChild(t); t.select();
-        try { document.execCommand('copy'); } catch {}
-        t.remove();
+  const io = new IntersectionObserver((es) => {
+    es.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
       }
-      const orig = btn.textContent;
-      btn.textContent = 'copied';
-      btn.classList.add('copied');
-      showToast('Zkopírováno: ' + val);
-      setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 1600);
     });
-  });
+  }, { threshold: .14 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 </script>
 </body>
 </html>
